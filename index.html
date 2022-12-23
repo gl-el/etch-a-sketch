@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  <title>Etch-a-skecth</title>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Etch-a-sketch</h1>
+  </div>
+  <div class="container">
+    <div class="controls">
+      <div class="color-control">
+        <input type="color" id="color-pick" value="#f6b73c">
+        <label for="color-pick">Choose color</label>
+      </div>
+      <div class="buttons">
+        <button id="random">Random mode</button>
+        <button id="eraser">Eraser mode</button>
+        <button id="darker">Dark mode</button>
+        <button id="clear">Clear</button>
+      </div>
+      <div class="canvas-size-control">
+        <input type="range" id="slider-range" class="slider-range" min="1" max="50" value="25" step="1">
+        <label for="slider-range">Grid size: <span id="slider-value">25 x 25</span></label>
+      </div>
+    </div>
+    <div class="canvas">
+      <!--вставляем пиксели сюда !-->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
