@@ -29,6 +29,7 @@
     gap: 50px;
     align-items: center;
   }
+  /* дублируется gap */
   .controls {
     flex-basis: 700px;
     gap: 25px;
@@ -59,6 +60,8 @@
   button:hover,
   .color-control:hover,
   .canvas-size-control:hover {
+    /* лучше писать везде в едином стиле */
+    /* и если нет необходимости, лучше в хексе или ргб */
     background-color:white;
   }
   .canvas {
