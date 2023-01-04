@@ -1,17 +1,30 @@
 const BACKGROUND = "hsl(0, 0%, 85%)"; //цвет фона по умолчанию
+
 //определяем размер одной стороны холста в пикселях
 let sliderValue = 25;//размер холста по умолчанию
-let pixelSize = "";//размер одного пикселя на холсте
+
+// почему строка?
+// let pixelSize = "";//размер одного пикселя на холсте
+
 let hue, sat, lum;//компоненты цвета для HSL представления
-let newColor = "hsl(43, 86%, 48%)";//начальный цвет кисти 
+
+// drawColor мб?
+let newColor = "hsl(43, 86%, 48%)";//начальный цвет кисти
+
 let mode = "color"; //переменная определяющая в каком режиме рисовать
+
+// isMouseDown
 let mouseIsDown = ""; //переменная для состояния лкм
 
 //добавление пикселей на холст
 const canvas = document.querySelector(".canvas");
 function addPixel(size) {
+    const pixelSize = 100 / sliderValue;
+
+    // глобальная pixelSize не нужна, ты ее только в этой функции используешь
     //считаем размер одного пикселя
-    pixelSize = 100 / sliderValue;
+    // pixelSize = 100 / sliderValue;
+
     //запускаем добавление
     for (let i = 0; i < size ** 2; i++) {
         //создаем элемент
@@ -24,6 +37,7 @@ function addPixel(size) {
         canvas.append(pixel);
     }
 }
+
 //первоначальное добавление пикселей на холст
 addPixel(sliderValue);
 
@@ -96,6 +110,7 @@ function dark(pixel) {
 }
 
 //очистка холста
+// enableClearMode или eraseMode
 function clearCanvas() {
     mode = "clear";
     //выбираем все пиксели
@@ -107,7 +122,9 @@ function clearCanvas() {
 }
 
 //функция для перезагрзуки холста
+// а это как раз clearCanvas
 function reloadCanvas() {
+    // canvas.innerHTML = ''
     document.querySelectorAll(".pixel").forEach((pixel) => {
         pixel.remove();//убираем все элемент с классом .pixel
     });
@@ -115,6 +132,7 @@ function reloadCanvas() {
 }
 
 //сброс фона кнопки
+// dfltStyleBtn или initialBtnState, но написал бы уж полностью
 function defStlBtn() {
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
@@ -161,7 +179,9 @@ btnClear.addEventListener("click", () => {
 });
 
 //обработка слайдера
+// const
 let slider = document.getElementById("slider-range");
+// const
 let sliderOutput = document.getElementById("slider-value");
 slider.addEventListener("change", () => { //при изменении слайдера
     sliderValue = slider.value; //переписываем значение для отрисовки холста
@@ -172,10 +192,12 @@ slider.addEventListener("change", () => { //при изменении слайд
 //слушаем состояние мыши
 //лкм нажта
 document.addEventListener("mousedown", () => {
+    // зачем ретерн?
     return (mouseIsDown = true);
 });
 //лкм отжата
 document.addEventListener("mouseup", () => {
+    // зачем ретерн?
     return (mouseIsDown = false);
 });
 
@@ -184,30 +206,31 @@ canvas.addEventListener("mouseover", (e) => {
     //проверка находится ли мышь над эдементом с классом pixel
     const isPixel = e.target.classList.contains("pixel");
     if (!isPixel) return;
+
+    if(!mouseIsDown) return
+
     //смотрим конкретный пиксель на который указывает мышь
     const pixel = e.target;
-    //проверяем состояние мыши,
-    //если лкм зажата - в зависимости от режима меняем цвет фона
-    if (mouseIsDown == true) {
-        switch (mode) {
-            case "color":
-                pixel.style.background = `${newColor}`;
-                break;
-            case "random":
-                pixel.style.background = getRandomColor();
-                break;
-            case "eraser":
-                pixel.style.background = BACKGROUND;
-                break;
-            case "darker":
-                pixel.style.background = dark(pixel);
-                break;
-            case "clear":
-                pixel.style.background = BACKGROUND;
-        }
+
+    switch (mode) {
+        case "color":
+            pixel.style.background = `${newColor}`;
+            break;
+        case "random":
+            pixel.style.background = getRandomColor();
+            break;
+        case "eraser":
+            pixel.style.background = BACKGROUND;
+            break;
+        case "darker":
+            pixel.style.background = dark(pixel);
+            break;
+        case "clear":
+            pixel.style.background = BACKGROUND;
     }
 });
 
+// удоли
 //функция преобрзования hex в hsl
 //не пригодилась
 function hexToHsl(HEX) {
